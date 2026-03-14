@@ -1,154 +1,144 @@
-# javascript-test-0002-final-14736-shivansh
-Final Project Assignment - This repository contains the complete final project code and documentation.
+# Reverse Pascal Triangle Pattern in JavaScript
 
+This project demonstrates how to generate a **Reverse Pascal Triangle Pattern** using JavaScript.
 
-# Number Pattern Program (JavaScript)
+The program prints Pascal’s Triangle **from top row to bottom row in reverse order**, where each number represents a **binomial coefficient**. This problem is commonly asked in **coding assessments and technical interviews** to evaluate knowledge of loops, mathematical logic, and pattern printing.
 
-## Overview
+---
 
-This JavaScript program prints a **symmetric number pattern** using nested loops.
-The pattern starts with numbers increasing from `1` to `5` and then decreasing back to `1`.
-With each new row, the pattern shifts to the right and the sequence becomes shorter.
+## 📌 Problem Statement
 
-This program demonstrates **loop control, pattern logic, and proper spacing**.
+Write a program that prints a **Reverse Pascal Triangle Pattern** for a given number of rows.
 
-Example output for `n = 5`:
+Example when `rows = 5`:
 
-```
-1 2 3 4 5 4 3 2 1 
- 1 2 3 4 3 2 1 
-  1 2 3 2 1 
-   1 2 1 
-    1 
+```text
+1 4 6 4 1
+ 1 3 3 1
+  1 2 1
+   1 1
+    1
 ```
 
 ---
 
-## How the Program Works
+## 🧠 Logic Used
 
-### 1. Pattern Size
+Pascal’s Triangle is based on the **Binomial Coefficient**:
 
-The variable `n` determines how many rows the pattern will have.
+[
+C(n,r) = \frac{n!}{r!(n-r)!}
+]
 
-```javascript
-let n = 5;
-```
+Instead of computing factorials repeatedly, we use an **iterative relation**:
 
----
+[
+C(n,r+1) = C(n,r) \times \frac{n-r}{r+1}
+]
 
-### 2. Outer Loop (Rows)
+### Steps:
 
-The outer loop controls how many rows will be printed.
+1. Start printing rows from **`rows - 1` down to `0`**.
+2. Print **leading spaces** for alignment.
+3. Start each row with value **1**.
+4. Compute the next value using the relation above.
+5. Continue until the row is complete.
 
-```javascript
-for (let i = 0; i < n; i++)
-```
-
----
-
-### 3. Leading Spaces
-
-Before printing numbers, spaces are added to shift the pattern to the right.
-
-```javascript
-for (let s = 0; s < i; s++) {
-  space += " ";
-}
-```
-
-Each row adds one extra space.
+This approach reduces unnecessary calculations and keeps the algorithm efficient.
 
 ---
 
-### 4. Increasing Numbers (Left Side)
-
-The first part of the pattern prints numbers from **1 up to a decreasing limit**.
+## 💻 Implementation
 
 ```javascript
-for (let j = 0; j < n - i; j++) {
-  left += (j + 1) + " ";
-}
-```
+/**
+ * Prints a reverse Pascal triangle
+ * @param {number} rows - Number of rows in the triangle
+ */
 
----
-
-### 5. Decreasing Numbers (Right Side)
-
-The second part prints numbers in **reverse order**.
-
-```javascript
-for (let j = n - i - 2; j >= 0; j--) {
-  right += (j + 1) + " ";
-}
-```
-
----
-
-### 6. Combine and Print
-
-Both parts are combined and printed using `console.log`.
-
-```javascript
-console.log(space + left + right);
-```
-
----
-
-## Code
-
-```javascript
-// Pattern Program
-
-let n = 5;
-
-for (let i = 0; i < n; i++) {
-
-  // print leading spaces
-  let space = "";
-  for (let s = 0; s < i; s++) {
-    space += " ";
+function printReversePascalTriangle(rows) {
+  if (!Number.isInteger(rows) || rows < 1) {
+    console.error("Invalid input: rows must be a positive integer.");
+    return;
   }
 
-  // first half of numbers
-  let left = "";
-  for (let j = 0; j < n - i; j++) {
-    left += (j + 1) + " ";
-  }
+  for (let row = rows - 1; row >= 0; row--) {
 
-  // second half of numbers
-  let right = "";
-  for (let j = n - i - 2; j >= 0; j--) {
-    right += (j + 1) + " ";
-  }
+    // create leading spaces
+    let line = " ".repeat(rows - 1 - row);
 
-  console.log(space + left + right);
+    let value = 1;
+
+    for (let col = 0; col <= row; col++) {
+      line += value + " ";
+
+      // calculate next Pascal value
+      value = (value * (row - col)) / (col + 1);
+    }
+
+    console.log(line.trimEnd());
+  }
 }
+
+// Example
+printReversePascalTriangle(5);
 ```
 
 ---
 
-## How to Run
+## ⚙️ How to Run
 
-1. Install **Node.js**
-2. Save the program as `pattern.js`
-3. Open the terminal in the project folder
-4. Run the command:
+1. Install **Node.js** on your system.
+2. Save the file as:
 
 ```
-node pattern.js
+reversePascalTriangle.js
+```
+
+3. Run the program:
+
+```bash
+node reversePascalTriangle.js
 ```
 
 ---
 
-## Concepts Used
+## 📂 Project Structure
 
-* Nested loops
-* Pattern printing logic
-* String concatenation
-* JavaScript console output
+```
+reverse-pascal-triangle-pattern
+│
+├── reversePascalTriangle.js
+└── README.md
+```
 
 ---
 
-## Author
+## 🚀 Features
 
-This program was created as a **practice exercise for learning JavaScript loops and pattern problems**.
+* Clean and optimized JavaScript implementation
+* Efficient binomial coefficient calculation
+* Input validation for safe execution
+* Reusable function-based structure
+* Beginner-friendly explanation
+
+---
+
+## 📚 Concepts Covered
+
+* JavaScript Nested Loops
+* Pattern Printing
+* Pascal Triangle Mathematics
+* Binomial Coefficient Optimization
+
+---
+
+## 👨‍💻 Author
+
+**Shivansh Dubey**
+
+B.Tech in Computer Science and Engineering
+
+
+Technologies:
+Java • JavaScript • React • MySQL
