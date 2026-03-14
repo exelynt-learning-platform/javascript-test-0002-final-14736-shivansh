@@ -1,32 +1,31 @@
-// Reverse Pascal Triangle Pattern
+/**
+ * Prints a reverse Pascal triangle
+ * @param {number} rows - Number of rows in the triangle
+ */
 
-let n = 5;
-
-// function to calculate nCr
-function combination(n, r) {
-  let res = 1;
-
-  for (let i = 0; i < r; i++) {
-    res = res * (n - i) / (i + 1);
+function printReversePascalTriangle(rows) {
+  if (!Number.isInteger(rows) || rows < 1) {
+    console.error("Invalid input: rows must be a positive integer.");
+    return;
   }
 
-  return Math.floor(res);
+  for (let row = rows - 1; row >= 0; row--) {
+
+    // print leading spaces
+    let line = " ".repeat(rows - 1 - row);
+
+    let value = 1;
+
+    for (let col = 0; col <= row; col++) {
+      line += value + " ";
+
+      // compute next Pascal value
+      value = (value * (row - col)) / (col + 1);
+    }
+
+    console.log(line.trimEnd());
+  }
 }
 
-for (let i = n - 1; i >= 0; i--) {
-
-  // print spaces
-  let space = "";
-  for (let s = 0; s < n - 1 - i; s++) {
-    space += " ";
-  }
-
-  let row = "";
-
-  // print Pascal numbers
-  for (let j = 0; j <= i; j++) {
-    row += combination(i, j) + " ";
-  }
-
-  console.log(space + row);
-}
+// Example
+printReversePascalTriangle(5);
